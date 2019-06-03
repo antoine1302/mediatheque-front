@@ -1,5 +1,4 @@
-
-export function collectionAsKeyValue(data, strKey, strVal){
+export function collectionAsKeyValue(data, strKey, strVal) {
 
     return data.map((entity) => {
 
@@ -17,11 +16,14 @@ export function collectionAsKeyValue(data, strKey, strVal){
 }
 
 export function arrayRemove(arr, index) {
-
-    return arr.filter(function(ele, i){
-        if(i !== index){
+    return arr.filter(function (ele, i) {
+        if (i !== index) {
             return ele;
         }
     });
 
+}
+
+export function toUppercaseFirstString(inputString) {
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1).toLowerCase();
 }

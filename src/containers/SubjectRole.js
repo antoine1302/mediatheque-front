@@ -75,7 +75,6 @@ class SubjectRole extends React.Component {
     }
 
     onChangeRoleHandler = (selectedOption) => {
-        console.log(selectedOption);
         this.setState({
             selectedRoleOption: selectedOption
         });

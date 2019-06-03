@@ -1,17 +1,17 @@
 import React from 'react';
-import mediathequeApi from '../api/mediathequeApi';
-import List from '../components/List';
+import mediathequeApi from "../api/mediathequeApi";
+import List from "../components/List";
 
-class MoviesList extends React.Component {
+class SubjectList extends React.Component {
 
     state = {
-        movies: [],
-        header: ['Titre', 'Date de sortie', 'Durée (en minutes)'],
+        subjects: [],
+        header: ['Nom', 'Prénom', 'Date de naissance'],
+        columnsToDisplay: ['lastname', 'firstname', 'dateOfBirth'],
         customStyle: {striped: true, hover: true},
-        columnsToDisplay: ['title', 'releaseDate', 'duration'],
         actionUrl: {
-            'update': '/movies',
-            'delete': mediathequeApi.deleteMovie
+            'update': '/subjects',
+            'delete': mediathequeApi.deleteSubject
         },
         listChanged: false
     };
@@ -23,13 +23,12 @@ class MoviesList extends React.Component {
     };
 
     render() {
-
-        const {movies, header, customStyle, columnsToDisplay, actionUrl} = this.state;
+        const {subjects, header, customStyle, columnsToDisplay, actionUrl} = this.state;
 
         return (
             <List
                 header={header}
-                content={movies}
+                content={subjects}
                 customStyle={customStyle}
                 columnsToDisplay={columnsToDisplay}
                 addActions={actionUrl}
@@ -49,11 +48,11 @@ class MoviesList extends React.Component {
     }
 
     _reload() {
-        mediathequeApi.getAllMovies()
+        mediathequeApi.getAllSubjects()
             .then(response => {
                 if (!response.empty) {
                     this.setState({
-                        movies: response.data.content,
+                        subjects: response.data.content,
                         listChanged: false
                     });
                 }
@@ -63,4 +62,4 @@ class MoviesList extends React.Component {
     }
 }
 
-export default MoviesList;
+export default SubjectList;

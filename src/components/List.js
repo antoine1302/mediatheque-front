@@ -16,7 +16,7 @@ class List extends React.Component {
         columnsToDisplay: PropTypes.array,
         addActions: PropTypes.oneOfType([
             PropTypes.shape({
-                update: PropTypes.func,
+                update: PropTypes.string,
                 delete: PropTypes.func,
                 preview: PropTypes.func
             })
@@ -34,7 +34,8 @@ class List extends React.Component {
         },
         columnsToDisplay: [],
         addActions: true,
-        listHandler: () => {}
+        listHandler: () => {
+        }
     };
 
     render() {
@@ -42,9 +43,8 @@ class List extends React.Component {
         const {header, content, customStyle} = this.props;
 
         if (content.length <= 0) {
-            return (<div>Aucun films</div>);
+            return (<div>Aucune données</div>);
         }
-
 
         return (
             <Table striped={customStyle.striped} bordered={customStyle.bordered} hover={customStyle.hover}>
@@ -64,8 +64,8 @@ class List extends React.Component {
             <thead>
             <tr>
                 {header.map((title, i) => {
-                    const key = i;
-                    return <th key={key}>{title}</th>;
+                    const uKey = i;
+                    return <th key={uKey}>{title}</th>;
                 })}
             </tr>
             </thead>
@@ -92,7 +92,15 @@ class List extends React.Component {
                 {columnsToDisplay.map((colname) => {
                     return <td key={colname + key}>{obj[colname]}</td>;
                 })}
-                {this.props.addActions && <td><ActionButton handler={listHandler} entityId={obj.id} update={addActions.update} deletion={addActions.delete}/></td>}
+                {this.props.addActions &&
+                <td>
+                    <ActionButton
+                        handler={listHandler}
+                        entityId={obj.id}
+                        update={addActions.update}
+                        deletion={addActions.delete}
+                    />
+                </td>}
             </tr>
         );
 

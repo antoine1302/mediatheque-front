@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import SubjectRole from './SubjectRole';
 import {arrayRemove} from '../modules/utils';
-import {urlMovies} from '../modules/config';
 
 class MovieForm extends React.Component {
 
@@ -29,7 +28,6 @@ class MovieForm extends React.Component {
     render() {
 
         const {currentMovie, subjectsRolesList} = this.state;
-        console.log(subjectsRolesList);
         return (
             <Form className="movieForm" onSubmit={this._formSubmitHandler}>
                 {currentMovie.id && <input name="id" type="hidden" defaultValue={currentMovie.id}/>}
@@ -47,7 +45,7 @@ class MovieForm extends React.Component {
                     <Form.Control
                         name="duration"
                         type="text"
-                        placeholder="Entrer la durée du film (en secondes)"
+                        placeholder="Entrer la durée du film (en minutes)"
                         defaultValue={currentMovie.duration}
                     />
                 </Form.Group>
@@ -56,7 +54,7 @@ class MovieForm extends React.Component {
                     <Form.Control
                         name="releaseDate"
                         type="text"
-                        placeholder="Date de sortie"
+                        placeholder="Date de sortie (YYYY-MM-DD)"
                         defaultValue={currentMovie.releaseDate}
                     />
                 </Form.Group>
@@ -80,12 +78,12 @@ class MovieForm extends React.Component {
                     const subjectId = (element === 'new') ? null : element.id.subjectId;
 
                     return <SubjectRole
-                            className="subjectMovieRow"
-                            key={i}
-                            index={i}
-                            deleteSubjectHandler={this._removeSubjectRole}
-                            selectedRoleId={roleId}
-                            selectedSubjectId={subjectId}
+                        className="subjectMovieRow"
+                        key={i}
+                        index={i}
+                        deleteSubjectHandler={this._removeSubjectRole}
+                        selectedRoleId={roleId}
+                        selectedSubjectId={subjectId}
                     />
                 })}
                 <Button variant="primary" type="submit">
@@ -100,9 +98,9 @@ class MovieForm extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.state.isSubmit === true){
+        if (this.state.isSubmit === true) {
             this.setState({
-               isSubmit: false
+                isSubmit: false
             });
         }
     }
@@ -124,7 +122,6 @@ class MovieForm extends React.Component {
             });
         }
     }
-
 
     _addSubjectRole = () => {
 
@@ -163,7 +160,7 @@ class MovieForm extends React.Component {
 
         if (id !== null) {
             MediathequeApi.updateMovie(id, objData).then((response) => {
-                if(response.status === 200){
+                if (response.status === 200) {
                     this.setState({
                         isSubmit: true
                     });
@@ -173,7 +170,7 @@ class MovieForm extends React.Component {
             });
         } else {
             MediathequeApi.createMovie(objData).then((response) => {
-                if(response.status === 200){
+                if (response.status === 200) {
                     this.props.history.push('/movies/' + response.data.id)
                 }
             }).catch((error) => {
